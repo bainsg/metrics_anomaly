@@ -3,7 +3,7 @@ data:
   output_path: "results.xlsx"
   metrics:
     - revenue
-    - mau
+    - MAU
     - PU
     - ARPPU
     - avg_retention_1

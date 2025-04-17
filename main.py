@@ -1,36 +1,37 @@
 import hydra
-from omegaconf import DictConfig
 import pandas as pd
-from src.processing.preprocessor import DataPreprocessor
-from src.detectors import ProphetDetector, ISOForestDetector
+from omegaconf import DictConfig
+from isoforest_detector import ISOForestDetector
+from preprocessor import DataPreprocessor
+from prophet_detector import ProphetDetector
 
-@hydra.main(version_base=None, config_path="../config", config_name="settings")
+
+@hydra.main(version_base=None, config_path=".", config_name="config")
 def main(cfg: DictConfig) -> None:
-
-    # Загружаем и обрабатываем данные
+    # Загрузка данных
     preprocessor = DataPreprocessor(cfg.data.input_path)
-    df, dates = preprocessor.process()
+    df = preprocessor.process()
     
-    prophet_detector = ProphetDetector(**cfg.models.prophet)
-    iso_detector = ISOForestDetector(**cfg.models.isoforest)
-    
-    # Производим поиск аномалий для всех метрик
-    anomalies = pd.DataFrame(index=dates)
+    # Детекция аномалий
+    anomalies = pd.DataFrame(index=df.index)
     for metric in cfg.data.metrics:
-        # Подготовка данных
+
+        # Для каждой метрики прогоняем еще раз модель по-новой
+        prophet_detector = ProphetDetector(**cfg.models.prophet)
+        iso_detector = ISOForestDetector(**cfg.models.isoforest)
+        
         metric_df = df[[metric]].rename(columns={metric: 'value'})
+        metric_df = metric_df.join(df[['year', 'month', 'time_idx']])
         
-        # Поиск через Prophet
+        # Обучение и предсказание
         prophet_anomalies = prophet_detector.fit_predict(metric_df)
-        
-        # Поиск через Isolation Forest
         iso_anomalies = iso_detector.fit_predict(metric_df)
         
-        # Комбинируем модели
         anomalies[metric] = prophet_anomalies & iso_anomalies
     
-    # Выгружаем в excel
+    # Сохранение результатов
     df.join(anomalies.add_prefix('anomaly_')).to_excel(cfg.data.output_path)
 
 if __name__ == "__main__":
     main()
+    
