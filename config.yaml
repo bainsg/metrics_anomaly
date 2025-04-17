@@ -1,9 +1,9 @@
 data:
-  input_path: "data/metrics.xlsx"
-  output_path: "results/anomalies.xlsx"
+  input_path: "metrics.xlsx"
+  output_path: "results.xlsx"
   metrics:
     - revenue
-    - mau
+    - MAU
     - PU
     - ARPPU
     - avg_retention_1

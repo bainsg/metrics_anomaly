@@ -1,0 +1,13 @@
+[2025-04-17 20:57:35,059][cmdstanpy][DEBUG] - cmd: where.exe tbb.dll
+cwd: None
+[2025-04-17 20:57:35,115][cmdstanpy][DEBUG] - Adding TBB (C:\Users\Баин\AppData\Local\Programs\Python\Python313\Lib\site-packages\prophet\stan_model\cmdstan-2.33.1\stan\lib\stan_math\lib\tbb) to PATH
+[2025-04-17 20:57:35,120][prophet][INFO] - Disabling weekly seasonality. Run prophet with weekly_seasonality=True to override this.
+[2025-04-17 20:57:35,121][prophet][INFO] - Disabling daily seasonality. Run prophet with daily_seasonality=True to override this.
+[2025-04-17 20:57:35,128][prophet][INFO] - n_changepoints greater than number of observations. Using 18.
+[2025-04-17 20:57:35,130][cmdstanpy][DEBUG] - input tempfile: C:\Users\ABE5~1\AppData\Local\Temp\tmp508ydqr9\ea3_t4wc.json
+[2025-04-17 20:57:35,133][cmdstanpy][DEBUG] - input tempfile: C:\Users\ABE5~1\AppData\Local\Temp\tmp508ydqr9\ncutzne7.json
+[2025-04-17 20:57:35,135][cmdstanpy][DEBUG] - idx 0
+[2025-04-17 20:57:35,135][cmdstanpy][DEBUG] - running CmdStan, num_threads: None
+[2025-04-17 20:57:35,135][cmdstanpy][DEBUG] - CmdStan args: ['C:\\Users\\Баин\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=44350', 'data', 'file=C:\\Users\\ABE5~1\\AppData\\Local\\Temp\\tmp508ydqr9\\ea3_t4wc.json', 'init=C:\\Users\\ABE5~1\\AppData\\Local\\Temp\\tmp508ydqr9\\ncutzne7.json', 'output', 'file=C:\\Users\\ABE5~1\\AppData\\Local\\Temp\\tmp508ydqr9\\prophet_modelwsgxxbi4\\prophet_model-20250417205735.csv', 'method=optimize', 'algorithm=newton', 'iter=10000']
+[2025-04-17 20:57:35,136][cmdstanpy][INFO] - Chain [1] start processing
+[2025-04-17 20:57:35,363][cmdstanpy][INFO] - Chain [1] done processing

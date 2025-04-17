@@ -11,13 +11,12 @@ class DataPreprocessor:
         self._validate_data()
         
     def _validate_data(self) -> None:
-        required_columns = {'month_dt', 'revenue', 'mau'}
+        required_columns = {'month_dt', 'revenue', 'MAU'}
         if not required_columns.issubset(self.df.columns):
             raise ValueError("Missing required columns")
     
     # Задаем основной пайплайн обработки данных
-    def process(self) -> Tuple[pd.DataFrame, pd.DatetimeIndex]:
-        
+    def process(self) -> pd.DataFrame:
         self.df = (
             self.df
             .set_index('month_dt')
@@ -25,14 +24,14 @@ class DataPreprocessor:
             .pipe(self._add_features)
             .pipe(self._handle_missing)
         )
-        return self.df, self.df.index
+        return self.df
     
     # Докидываем фичи
     def _add_features(self, df: pd.DataFrame) -> pd.DataFrame:
         return df.assign(
-            year=lambda x: x.index.year,
-            month=lambda x: x.index.month,
-            time_idx=lambda x: (x.index.year - x.index.year.min()) * 12 + x.index.month
+            year=df.index.year,
+            month=df.index.month,
+            time_idx=(df.index.year - df.index.year.min()) * 12 + df.index.month
         )
     
     # Если есть пропуски, обрабатываем их
