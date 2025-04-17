@@ -1,0 +1,21 @@
+data:
+  input_path: "data/metrics.xlsx"
+  output_path: "results/anomalies.xlsx"
+  metrics:
+    - revenue
+    - mau
+    - PU
+    - ARPPU
+    - avg_retention_1
+    - avg_retention_7
+
+models:
+  prophet:
+    seasonality_mode: "multiplicative"
+    yearly_seasonality: True
+    interval_width: 0.95
+  
+  isoforest:
+    n_estimators: 200
+    contamination: "auto"
+    random_state: 42
